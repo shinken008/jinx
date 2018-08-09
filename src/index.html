@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script>const electron = require('electron');</script>
+  <header><h4>欢迎使用Jinx桌面应用打包工具</h4></header>
+   <div class="container">
+      <label for="filepicker">
+        <span>选取打包目录项：</span>
+        <input class="jinx-input" type="file" name="filepicker" id="filepicker" webkitdirectory directory />
+      </label>
+      <p id="pick-list" class="list"></p>
+      <label for="filesave">
+        <span>选择保存目录：</span>
+        <input class="jinx-input" type="file" name="filesave" id="filesave" webkitdirectory directory />
+      </label>
+      <p id="save-list" class="list"></p>
+      <label for="filename">
+        <span>保存文件名：</span>
+        <input class="jinx-input" type="text" name="filename" id="filename" placeholder="选填" />
+      </label>
+      <p></p>
+      <div class="btn-wrap">
+        <button class="jinx-btn jinx-btn-primary" id="buildbtn">开始打包</button>
+      </div>
+   </div>
+   <script src="app.js"></script>
+</body>
+</html>

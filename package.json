@@ -1,0 +1,24 @@
+{
+  "name": "jinx",
+  "version": "1.0.0",
+  "description": "build desktop application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron . --inspect",
+    "run-app": "electron ./output/main.js",
+    "build-darwin": "electron-packager . --platform=darwin --electron-version=2.0.5 --overwrite --ignore=.gitignore",
+    "build-win32": "electron-packager . --platform=win32 --electron-version=2.0.5 --overwrite --ignore=.gitignore"
+  },
+  "keywords": [
+    "electron",
+    "vue"
+  ],
+  "author": "Shin",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^2.0.5",
+    "electron-packager": "^12.1.0",
+    "fs-extra": "^7.0.0"
+  }
+}
