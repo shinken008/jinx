@@ -22,7 +22,7 @@ app.on('ready', function () {
   // Create the browser window.
   mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/src/index.html');
@@ -38,7 +38,7 @@ app.on('ready', function () {
 });
 
 ipcMain.on('data', (event, data) => {
-  const { sourcePath, targetPath, fileName } = data
+  const { sourcePath, targetPath, fileName, system } = data
   const { name } = path.parse(sourcePath)
   const appName = fileName !== '' ? fileName : name
   const appPath = path.resolve(__dirname, appName)
@@ -65,22 +65,32 @@ ipcMain.on('data', (event, data) => {
       // 设置它为 true 可以使 asar 文件在node的内置模块中失效.
       process.noAsar = true
 
+      // 针对选择不同系统选择不同打包策略
+      let otherOpt = {}
+      otherOpt.platform = system
+      if (system === 'all') {
+        otherOpt.arch = 'all'
+        otherOpt.all = true
+      } else {
+        otherOpt.arch = 'x64'
+      }
+
       packager({
+        ...otherOpt,
         dir: appPath,
         name: appName,
         out: targetPath,
         overwrite: true,
-        platform: process.platform,
         appVersion: appVersion,
         electronVersion: '2.0.5',
         ignore: ['node_modules', '.gitignore', /\*.log/],
       }, function (error, appPaths) {
-        if (error) {
-          throw new Error(`打包文件出错啦: ${error}`);
-        }
         // 删除源文件
         if (process.platform === 'darwin') exec(`rm -rf ${appPath}`)
         if (process.platform === 'win32') exec(`rd ${appPath}`)
+        if (error) {
+          throw new Error(`打包文件出错啦: ${error}`);
+        }
         console.info('========== packaged successfully =============')
         const notification = new Notification({
           title: '打包成功'

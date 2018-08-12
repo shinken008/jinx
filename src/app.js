@@ -15,6 +15,12 @@ function bootstrap() {
     targetPath = output.innerHTML = files[0].path
   }, false);
 
+  const system = document.getElementById('system')
+  let systemVal = system.value
+  system.onchange = function (e) {
+    systemVal = e.target.value
+  }
+
   const ipc = electron.ipcRenderer
   const buildbtn = document.getElementById("buildbtn")
   const filenameInput = document.getElementById("filename")
@@ -23,7 +29,12 @@ function bootstrap() {
       alert('请选择打包路径和保存路径')
       return
     }
-    ipc.send('data', { sourcePath: sourcePath, targetPath: targetPath, fileName: filenameInput.value })
+    ipc.send('data', {
+      sourcePath,
+      targetPath,
+      fileName: filenameInput.value,
+      system: systemVal,
+    })
   }
 
   

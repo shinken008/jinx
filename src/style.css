@@ -72,6 +72,17 @@ label span {
   text-align: right;
 }
 
+label select {
+  height: 32px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+}
+
+label select option {
+  line-height: 24px;
+  background-color: #fff;
+}
+
 header h4 {
   text-align: center;
 }
