@@ -58,8 +58,6 @@ ipcMain.on('data', (event, data) => {
       const packageJSON = getPackageJSON(appName)
       fs.writeFileSync(`${appPath}/package.json`, packageJSON, { encoding: 'utf8' })
       // 打包目标目录
-      // const buidlCommandar = `electron-packager ${appPath} ${appName} --out ${targetPath} --platform=${process.platform} --electron-version=2.0.5 --overwrite --ignore=node_modules --ignore=.gitignore`
-      // console.info(`exec build ${buidlCommandar}`)
       console.info(`package start with options appPath=${appPath}`)
 
       // 设置它为 true 可以使 asar 文件在node的内置模块中失效.
@@ -82,7 +80,7 @@ ipcMain.on('data', (event, data) => {
         out: targetPath,
         overwrite: true,
         appVersion: appVersion,
-        electronVersion: '2.0.5',
+        electronVersion: '2.0.8',
         ignore: ['node_modules', '.gitignore', /\*.log/],
       }, function (error, appPaths) {
         // 删除源文件
